@@ -1,8 +1,15 @@
-# React + Vite
+# IDM-R3F
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![code size](https://img.shields.io/github/languages/code-size/pw-sea-code/idm-r3f?style=flat-square)
+![license](https://img.shields.io/github/license/pw-sea-code/idm-r3f?style=flat-square)
+![issues](https://img.shields.io/github/issues/pw-sea-code/idm-r3f)
 
-Currently, two official plugins are available:
+Interactive Design Models - React Three Fiber (IDM-R3F) is an example of an interactive 
+web application for explorting an architectural design model. It uses React Three Fiber 
+to bridge the gap between Three.js and React.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository is intended to be merged into this [project](https://github.com/pw-sea-code/interactivedesignmodels), as an example using the UI/interactive components.
+
+## Contributing
+
+Feel free to create an issue/PR if you want to see anything else implemented or find any bugs. 
