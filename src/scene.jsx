@@ -1,28 +1,24 @@
-import { OrbitControls } from "@react-three/drei";
+import { useRef } from "react";
+import {
+  Environment,
+  Sky,
+  SoftShadows,
+  OrbitControls,
+} from "@react-three/drei";
 import { button, useControls } from "leva";
 import { Perf } from "r3f-perf";
 
 export default function Scene() {
+  const directionalLight = useRef();
+
   const { perfVisible } = useControls({
     perfVisible: true,
   });
-  const { position, color, visible } = useControls("sphere", {
-    position: {
-      value: { x: -2, y: 0 },
-      step: 0.01,
-      joystick: "invertY",
-    },
-    color: "#ff0000",
+  const { sunPosition } = useControls("sun position", {
+    sunPosition: { value: [1, 2, 3] },
+  });
+  const { visible } = useControls("sphere", {
     visible: true,
-    myInterval: {
-      min: 0,
-      max: 10,
-      value: [4, 5],
-    },
-    choice: { options: ["a", "b", "c"] },
-    clickMe: button(() => {
-      console.log("ok");
-    }),
   });
 
   return (
@@ -30,20 +26,41 @@ export default function Scene() {
       {perfVisible && <Perf position="top-left" />}
       <OrbitControls makeDefault />
 
-      <directionalLight position={[1, 2, 3]} intensity={4.5} />
+      <Sky position={sunPosition} />
+
+      <SoftShadows size={25} samples={10} focus={10} />
+
+      <directionalLight
+        ref={directionalLight}
+        castShadow
+        position={sunPosition}
+        intensity={4.5}
+        shadow-mapSize={[1024, 1024]}
+        shadow-camera-near={1}
+        shadow-camera-far={10}
+        shadow-camera-top={5}
+        shadow-camera-right={5}
+        shadow-camera-bottom={-5}
+        shadow-camera-left={-5}
+      />
       <ambientLight intensity={1.5} />
 
-      <mesh position={[position.x, position.y, 0]} visible={visible}>
+      <mesh castShadow position={[-2, 0, 0]} visible={visible}>
         <sphereGeometry />
-        <meshStandardMaterial color={color} />
+        <meshStandardMaterial color="red" />
       </mesh>
 
-      <mesh position-x={2} scale={1.5}>
+      <mesh castShadow position-x={2} scale={1.5}>
         <boxGeometry />
         <meshStandardMaterial color="mediumpurple" />
       </mesh>
 
-      <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
+      <mesh
+        receiveShadow
+        position-y={-1}
+        rotation-x={-Math.PI * 0.5}
+        scale={10}
+      >
         <planeGeometry />
         <meshStandardMaterial color="greenyellow" />
       </mesh>

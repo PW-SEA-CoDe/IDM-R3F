@@ -17,7 +17,7 @@ const cameraSettings = {
 root.render(
   <StrictMode>
     <Leva collapsed />
-    <Canvas camera={cameraSettings}>
+    <Canvas shadows camera={cameraSettings}>
       <Scene />
     </Canvas>
   </StrictMode>,
