@@ -1,48 +1,51 @@
-import { extend, useFrame, useThree } from "@react-three/fiber";
-import { useRef } from "react";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-
-extend({ OrbitControls }); //extended to jsx as "orbitControls"
+import { OrbitControls } from "@react-three/drei";
+import { button, useControls } from "leva";
+import { Perf } from "r3f-perf";
 
 export default function Scene() {
-  const { camera, gl } = useThree(); // get scene info on load
-  const cubeRef = useRef();
-  const groupRef = useRef();
-
-  useFrame((state, delta) => {
-    //state contains scene info per frame
-    // const angle = state.clock.elapsedTime;
-    // state.camera.position.x = Math.sin(angle) * 8;
-    // state.camera.position.z = Math.cos(angle) * 8;
-    // state.camera.lookAt(0, 0, 0);
-
-    cubeRef.current.rotation.y += delta;
-    // groupRef.current.rotation.y += delta;
+  const { perfVisible } = useControls({
+    perfVisible: true,
+  });
+  const { position, color, visible } = useControls("sphere", {
+    position: {
+      value: { x: -2, y: 0 },
+      step: 0.01,
+      joystick: "invertY",
+    },
+    color: "#ff0000",
+    visible: true,
+    myInterval: {
+      min: 0,
+      max: 10,
+      value: [4, 5],
+    },
+    choice: { options: ["a", "b", "c"] },
+    clickMe: button(() => {
+      console.log("ok");
+    }),
   });
 
   return (
     <>
-      <orbitControls args={[camera, gl.domElement]} />
+      {perfVisible && <Perf position="top-left" />}
+      <OrbitControls makeDefault />
+
       <directionalLight position={[1, 2, 3]} intensity={4.5} />
       <ambientLight intensity={1.5} />
-      <group ref={groupRef}>
-        <mesh
-          ref={cubeRef}
-          scale={1.5}
-          position-x={2}
-          rotation-y={Math.PI * 0.25}
-        >
-          <boxGeometry />
-          <meshStandardMaterial color={"mediumpurple"} />
-        </mesh>
-        <mesh position-x={-2}>
-          <sphereGeometry />
-          <meshStandardMaterial color={"orange"} />
-        </mesh>
-      </group>
-      <mesh scale={100} position={[0, -4, -12]} rotation-x={Math.PI * -0.5}>
+
+      <mesh position={[position.x, position.y, 0]} visible={visible}>
+        <sphereGeometry />
+        <meshStandardMaterial color={color} />
+      </mesh>
+
+      <mesh position-x={2} scale={1.5}>
+        <boxGeometry />
+        <meshStandardMaterial color="mediumpurple" />
+      </mesh>
+
+      <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
         <planeGeometry />
-        <meshStandardMaterial color={"greenyellow"} />
+        <meshStandardMaterial color="greenyellow" />
       </mesh>
     </>
   );
