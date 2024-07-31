@@ -1,11 +1,6 @@
 import { useRef } from "react";
-import {
-  Environment,
-  Sky,
-  SoftShadows,
-  OrbitControls,
-} from "@react-three/drei";
-import { button, useControls } from "leva";
+import { Sky, SoftShadows, OrbitControls } from "@react-three/drei";
+import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 
 export default function Scene() {
