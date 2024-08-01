@@ -1,9 +1,18 @@
 import { Suspense, useRef } from "react";
-import { Sky, SoftShadows, OrbitControls } from "@react-three/drei";
+import {
+  Sky,
+  SoftShadows,
+  OrbitControls,
+  BakeShadows,
+} from "@react-three/drei";
 import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 
-import ModelLoader from "ModelLoader";
+import ModelLoader from "./ModelLoader";
+import ContextBlocks from "./models/ContextBlocks";
+import ContextBuildings from "./models/ContextBuildings";
+import ContextStreets from "./models/ContextStreets";
+import Marker from "./components/Marker";
 
 export default function Scene() {
   const directionalLight = useRef();
@@ -12,7 +21,7 @@ export default function Scene() {
     perfVisible: true,
   });
   const { sunPosition } = useControls("sun position", {
-    sunPosition: { value: [1, 2, 3] },
+    sunPosition: { value: [-2000, -2000, 2000] },
   });
   const { visible } = useControls("sphere", {
     visible: true,
@@ -23,8 +32,9 @@ export default function Scene() {
       {perfVisible && <Perf position="top-left" />}
       <OrbitControls makeDefault />
 
-      <Sky position={sunPosition} />
+      <Sky position={sunPosition} distance={450000} />
 
+      <BakeShadows />
       <SoftShadows size={25} samples={10} focus={10} />
 
       <directionalLight
@@ -42,26 +52,16 @@ export default function Scene() {
       />
       <ambientLight intensity={1.5} />
 
+      <Marker />
+
       <Suspense>
-        <ModelLoader
-          modelPath="./models/context-blocks.glb"
-          scale={[1, 1, 1]}
-          position={[0, 0, 0]}
-        />
+        <ContextBlocks />
       </Suspense>
       <Suspense>
-        <ModelLoader
-          modelPath="./models/context-streets.glb"
-          scale={[1, 1, 1]}
-          position={[0, 0, 0]}
-        />
+        <ContextBuildings />
       </Suspense>
       <Suspense>
-        <ModelLoader
-          modelPath="./models/context-buildings.glb"
-          scale={[1, 1, 1]}
-          position={[0, 0, 0]}
-        />
+        <ContextStreets />
       </Suspense>
 
       <mesh castShadow position={[-2, 0, 0]} visible={visible}>

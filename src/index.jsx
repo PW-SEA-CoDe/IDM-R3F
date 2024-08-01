@@ -10,14 +10,15 @@ const root = ReactDOM.createRoot(document.querySelector("#root"));
 const cameraSettings = {
   fov: 45,
   near: 0.1,
-  far: 200,
-  position: [-4, 3, 6],
+  far: 10000,
+  position: [-1900, 1175, 1900],
 };
 
 root.render(
   <StrictMode>
     <Leva collapsed />
     <Canvas shadows camera={cameraSettings}>
+      <axesHelper scale={500} />
       <Scene />
     </Canvas>
   </StrictMode>,

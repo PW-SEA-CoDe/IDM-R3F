@@ -8,18 +8,19 @@ const ModelLoader = ({
   scale = [1, 1, 1],
   position = [0, 0, 0],
 }) => {
-  const model = useLoader(GLTFLoader, modelPath, (loader) => {
+  const { scene } = useLoader(GLTFLoader, modelPath, (loader) => {
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("./draco/");
     loader.setDRACOLoader(dracoLoader);
   });
+  console.log(scene);
   return (
     <>
       <primitive
-        model={model.scene}
-        dispose={null}
+        model={scene}
         scale={scale}
         position={position}
+        dispose={null}
       />
     </>
   );
