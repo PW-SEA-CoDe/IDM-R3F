@@ -1,7 +1,9 @@
-import { useRef } from "react";
+import { Suspense, useRef } from "react";
 import { Sky, SoftShadows, OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
 import { Perf } from "r3f-perf";
+
+import ModelLoader from "ModelLoader";
 
 export default function Scene() {
   const directionalLight = useRef();
@@ -39,6 +41,28 @@ export default function Scene() {
         shadow-camera-left={-5}
       />
       <ambientLight intensity={1.5} />
+
+      <Suspense>
+        <ModelLoader
+          modelPath="./models/context-blocks.glb"
+          scale={[1, 1, 1]}
+          position={[0, 0, 0]}
+        />
+      </Suspense>
+      <Suspense>
+        <ModelLoader
+          modelPath="./models/context-streets.glb"
+          scale={[1, 1, 1]}
+          position={[0, 0, 0]}
+        />
+      </Suspense>
+      <Suspense>
+        <ModelLoader
+          modelPath="./models/context-buildings.glb"
+          scale={[1, 1, 1]}
+          position={[0, 0, 0]}
+        />
+      </Suspense>
 
       <mesh castShadow position={[-2, 0, 0]} visible={visible}>
         <sphereGeometry />
