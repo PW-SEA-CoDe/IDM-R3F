@@ -8,11 +8,9 @@ import {
 import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 
-import ModelLoader from "./ModelLoader";
-import ContextBlocks from "./models/ContextBlocks";
-import ContextBuildings from "./models/ContextBuildings";
-import ContextStreets from "./models/ContextStreets";
-import Marker from "./components/Marker";
+import RhinoModel from "components/RhinoModel";
+
+const flatironURL = "models/flatiron.3dm";
 
 export default function Scene() {
   const directionalLight = useRef();
@@ -52,16 +50,8 @@ export default function Scene() {
       />
       <ambientLight intensity={1.5} />
 
-      <Marker />
-
       <Suspense>
-        <ContextBlocks />
-      </Suspense>
-      <Suspense>
-        <ContextBuildings />
-      </Suspense>
-      <Suspense>
-        <ContextStreets />
+        <RhinoModel url={flatironURL} />
       </Suspense>
 
       <mesh castShadow position={[-2, 0, 0]} visible={visible}>
