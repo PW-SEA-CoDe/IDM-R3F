@@ -1,66 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { useLoader } from "@react-three/fiber";
 import * as THREE from "three";
-import { Rhino3dmLoader } from "three/examples/jsm/loaders/3DMLoader";
-
-// Register the loader
-THREE.DefaultLoadingManager.addHandler(/\.3dm$/, Rhino3dmLoader);
+import { rhino3dm } from "rhino3dm";
 
 const RhinoModel = ({ url }) => {
-  const [rhino, setRhino] = useState(null);
+  const [geometry, setGeometry] = useState(null);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const loadRhino = async () => {
-      try {
-        const rhino3dm = await import("rhino3dm");
-        const rhino = await rhino3dm.default();
-        setRhino(rhino);
-        setLoading(false);
-      } catch (err) {
-        console.error("Failed to load rhino3dm:", err);
-        setError(
-          "Failed to load 3D model library. Please check your internet connection and try again.",
-        );
-        setLoading(false);
-      }
-    };
+    rhino3dm()
+      .then((rhino) => {
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Could not load ${url}: ${response.statusText}`);
+            }
+            return response.arrayBuffer();
+          })
+          .then((buffer) => {
+            const doc = rhino.File3dm.fromByteArray(new Uint8Array(buffer));
+            const objects = doc.objects();
+            if (objects.count === 0) {
+              throw new Error("No objects found in the .3dm file");
+            }
+            const rhinoObject = objects.get(0).geometry();
+            const threeMesh = rhinoObjectToThreeMesh(rhinoObject, rhino);
+            setGeometry(threeMesh.geometry);
+          })
+          .catch((err) => setError(`Error loading .3dm file: ${err.message}`));
+      })
+      .catch((err) => setError(`Error initializing rhino3dm: ${err.message}`));
+  }, [url]);
 
-    loadRhino();
-  }, []);
-
-  const object = useLoader(
-    Rhino3dmLoader,
-    url,
-    (loader) => {
-      loader.setLibraryPath("https://cdn.jsdelivr.net/npm/rhino3dm@7.15.0/");
-    },
-    (error) => {
-      console.error("Error loading 3D model:", error);
-      setError(
-        "Failed to load 3D model. Please check the file path and try again.",
-      );
-      setLoading(false);
-    },
-  );
-
-  useEffect(() => {
-    if (rhino && object) {
-      console.log("Rhino3dm model loaded:", object);
-      setLoading(false);
-    }
-  }, [rhino, object]);
-
-  if (loading) {
-    return <div>Loading 3D model...</div>;
-  }
+  const rhinoObjectToThreeMesh = (rhinoObject, rhino) => {
+    // You might need to adjust this based on your Rhino3dm usage
+    const loader = new THREE.BufferGeometryLoader();
+    const bufferGeometry = loader.parse(rhinoObject.toThreejsJSON());
+    return new THREE.Mesh(
+      bufferGeometry,
+      new THREE.MeshStandardMaterial({ color: "orange" }),
+    );
+  };
 
   if (error) {
-    return <div style={{ color: "red" }}>{error}</div>;
+    return <div>{error}</div>;
   }
 
-  return object ? <primitive object={object} /> : null;
+  return geometry ? <primitive object={geometry} /> : null;
 };
 
 export default RhinoModel;

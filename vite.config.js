@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
+  assetsInclude: ["**/*.3dm"],
   resolve: {
     alias: {
       rhino3dm: "rhino3dm/rhino3dm.js",
@@ -11,7 +12,6 @@ export default defineConfig({
       components: "/src/components",
       assets: "/src/assets",
       lib: "/src/lib",
-      models: "/src/models",
     },
   },
   build: {

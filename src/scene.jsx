@@ -9,7 +9,6 @@ import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 
 import RhinoModel from "components/RhinoModel";
-
 const flatironURL = "models/flatiron.3dm";
 
 export default function Scene() {
