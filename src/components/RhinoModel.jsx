@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 import { Rhino3dmLoader } from "three/examples/jsm/loaders/3DMLoader";
+import * as THREE from "three";
 
-const RhinoModel = ({ url, color = "black", ...props }) => {
+const RhinoModel = ({ url, ...props }) => {
   const [model, setModel] = useState(null);
   const [error, setError] = useState(null);
   const groupRef = useRef();
@@ -15,15 +17,34 @@ const RhinoModel = ({ url, color = "black", ...props }) => {
       (loadedModel) => {
         console.log("Model loaded successfully:", loadedModel);
         try {
+          // Correct the orientation
+          loadedModel.rotateX(-Math.PI / 2);
+
           loadedModel.traverse((child) => {
             if (child.isMesh) {
               console.log("Mesh found:", child);
-              child.material.color.set(color);
+
+              // Ensure the material is MeshPhongMaterial for better rendering
+              if (!(child.material instanceof THREE.MeshPhongMaterial)) {
+                const color = child.material.color;
+                child.material = new THREE.MeshPhongMaterial({
+                  color: color,
+                  shininess: 30,
+                  specular: 0x111111,
+                });
+              }
+
+              // Enable shadows
+              child.castShadow = true;
+              child.receiveShadow = true;
             } else if (child.isLine) {
               console.log("Line found:", child);
-              child.material.color.set("white");
+              // Ensure lines are visible
+              child.material.color.setHex(0xffffff);
+              child.material.linewidth = 2;
             }
           });
+
           setModel(loadedModel);
         } catch (err) {
           console.error("Error processing loaded model:", err);
@@ -38,21 +59,15 @@ const RhinoModel = ({ url, color = "black", ...props }) => {
         setError(err.message);
       },
     );
-  }, [url, color]);
+  }, [url]);
 
   if (error) {
-    return (
-      <group>
-        <meshBasicMaterial color="red" />
-        <boxGeometry args={[1, 1, 1]} />
-        <Text position={[0, 2, 0]} color="white">{`Error: ${error}`}</Text>
-      </group>
-    );
+    return <Text position={[0, 2, 0]} color="white">{`Error: ${error}`}</Text>;
   }
 
   return (
     <group ref={groupRef} {...props}>
-      {model && <primitive object={model} castShadow />}
+      {model && <primitive object={model} />}
     </group>
   );
 };

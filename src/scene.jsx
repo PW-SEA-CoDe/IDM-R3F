@@ -9,7 +9,10 @@ import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 
 import RhinoModel from "components/RhinoModel";
-const flatironURL = "models/flatiron.3dm";
+const contextURL = "models/context.3dm";
+const buildingOneURL = "models/buildingOne.3dm";
+const buildingTwoURL = "models/buildingTwo.3dm";
+const buildingThreeURL = "models/buildingThree.3dm";
 
 export default function Scene() {
   const directionalLight = useRef();
@@ -50,7 +53,16 @@ export default function Scene() {
       <ambientLight intensity={1.5} />
 
       <Suspense>
-        <RhinoModel url={flatironURL} />
+        <RhinoModel url={contextURL} />
+      </Suspense>
+      <Suspense>
+        <RhinoModel url={buildingOneURL} />
+      </Suspense>
+      <Suspense>
+        <RhinoModel url={buildingTwoURL} />
+      </Suspense>
+      <Suspense>
+        <RhinoModel url={buildingThreeURL} />
       </Suspense>
 
       <mesh castShadow position={[-2, 0, 0]} visible={visible}>
