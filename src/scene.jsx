@@ -21,26 +21,9 @@ export default function Scene() {
   const { perfVisible } = useControls({
     perfVisible: true,
   });
-  const {
-    sunPosition,
-    sunSpeed,
-    rayleigh,
-    turbidity,
-    mieCoefficient,
-    mieDirectionalG,
-    elevation,
-    azimuth,
-    scale,
-  } = useControls("sun", {
+  const { sunPosition, sunSpeed } = useControls("sun", {
     sunPosition: { value: [-200, -200, 400] },
-    sunSpeed: 0.25,
-    rayleigh: { value: 3, min: 0, max: 10, step: 0.1 },
-    turbidity: { value: 10, min: 0, max: 20, step: 0.1 },
-    mieCoefficient: { value: 0.005, min: 0, max: 0.1, step: 0.001 },
-    mieDirectionalG: { value: 0.8, min: 0, max: 1, step: 0.01 },
-    elevation: { value: 2, min: 0, max: Math.PI, step: 0.1 },
-    azimuth: { value: 180, min: 0, max: 360, step: 1 },
-    scale: { value: 1000, min: 1, max: 5000, step: 10 },
+    sunSpeed: 0.05,
   });
 
   const { skyPosition } = useSunContext();
@@ -49,16 +32,7 @@ export default function Scene() {
     <>
       {perfVisible && <Perf position="top-left" />}
       <OrbitControls makeDefault />
-      <Sky
-        sunPosition={skyPosition}
-        rayleigh={rayleigh}
-        turbidity={turbidity}
-        mieCoefficient={mieCoefficient}
-        mieDirectionalG={mieDirectionalG}
-        elevation={elevation}
-        azimuth={azimuth}
-        scale={scale}
-      />
+      <Sky position={skyPosition} distance={45000} />
       <Sun position={sunPosition} animationSpeed={sunSpeed} />
       <ambientLight intensity={1.5} />
       <SoftShadows size={25} samples={10} />

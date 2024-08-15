@@ -3,7 +3,6 @@ import Scene from "./scene.jsx";
 
 import ReactDOM from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
-import { StrictMode } from "react";
 import { Leva } from "leva";
 import {
   EffectComposer,
@@ -24,7 +23,7 @@ const cameraSettings = {
 };
 
 root.render(
-  <StrictMode>
+  <>
     <Leva collapsed />
     <SunProvider>
       <Canvas shadows camera={cameraSettings}>
@@ -48,5 +47,5 @@ root.render(
         </EffectComposer>
       </Canvas>
     </SunProvider>
-  </StrictMode>,
+  </>,
 );
