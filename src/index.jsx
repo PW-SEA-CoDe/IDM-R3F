@@ -11,7 +11,7 @@ const cameraSettings = {
   fov: 45,
   near: 0.1,
   far: 10000,
-  position: [-1900, 1175, 1900],
+  position: [-2000, 1200, 2000],
 };
 
 root.render(

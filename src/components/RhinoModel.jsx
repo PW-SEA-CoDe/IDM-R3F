@@ -1,51 +1,60 @@
-import React, { useEffect, useState } from "react";
-import * as THREE from "three";
-import { rhino3dm } from "rhino3dm";
+import React, { useEffect, useState, useRef } from "react";
+import { Rhino3dmLoader } from "three/examples/jsm/loaders/3DMLoader";
 
-const RhinoModel = ({ url }) => {
-  const [geometry, setGeometry] = useState(null);
+const RhinoModel = ({ url, color = "black", ...props }) => {
+  const [model, setModel] = useState(null);
   const [error, setError] = useState(null);
+  const groupRef = useRef();
 
   useEffect(() => {
-    rhino3dm()
-      .then((rhino) => {
-        fetch(url)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`Could not load ${url}: ${response.statusText}`);
-            }
-            return response.arrayBuffer();
-          })
-          .then((buffer) => {
-            const doc = rhino.File3dm.fromByteArray(new Uint8Array(buffer));
-            const objects = doc.objects();
-            if (objects.count === 0) {
-              throw new Error("No objects found in the .3dm file");
-            }
-            const rhinoObject = objects.get(0).geometry();
-            const threeMesh = rhinoObjectToThreeMesh(rhinoObject, rhino);
-            setGeometry(threeMesh.geometry);
-          })
-          .catch((err) => setError(`Error loading .3dm file: ${err.message}`));
-      })
-      .catch((err) => setError(`Error initializing rhino3dm: ${err.message}`));
-  }, [url]);
+    const loader = new Rhino3dmLoader();
+    loader.setLibraryPath("https://cdn.jsdelivr.net/npm/rhino3dm@8.4.0/");
 
-  const rhinoObjectToThreeMesh = (rhinoObject, rhino) => {
-    // You might need to adjust this based on your Rhino3dm usage
-    const loader = new THREE.BufferGeometryLoader();
-    const bufferGeometry = loader.parse(rhinoObject.toThreejsJSON());
-    return new THREE.Mesh(
-      bufferGeometry,
-      new THREE.MeshStandardMaterial({ color: "orange" }),
+    loader.load(
+      url,
+      (loadedModel) => {
+        console.log("Model loaded successfully:", loadedModel);
+        try {
+          loadedModel.traverse((child) => {
+            if (child.isMesh) {
+              console.log("Mesh found:", child);
+              child.material.color.set(color);
+            } else if (child.isLine) {
+              console.log("Line found:", child);
+              child.material.color.set("white");
+            }
+          });
+          setModel(loadedModel);
+        } catch (err) {
+          console.error("Error processing loaded model:", err);
+          setError(err.message);
+        }
+      },
+      (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+      },
+      (err) => {
+        console.error("Error loading model:", err);
+        setError(err.message);
+      },
     );
-  };
+  }, [url, color]);
 
   if (error) {
-    return <div>{error}</div>;
+    return (
+      <group>
+        <meshBasicMaterial color="red" />
+        <boxGeometry args={[1, 1, 1]} />
+        <Text position={[0, 2, 0]} color="white">{`Error: ${error}`}</Text>
+      </group>
+    );
   }
 
-  return geometry ? <primitive object={geometry} /> : null;
+  return (
+    <group ref={groupRef} {...props}>
+      {model && <primitive object={model} castShadow />}
+    </group>
+  );
 };
 
 export default RhinoModel;
