@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useFrame } from "@react-three/fiber";
 import { Rhino3dmLoader } from "three/examples/jsm/loaders/3DMLoader";
 import * as THREE from "three";
 
-const RhinoModel = ({ url, ...props }) => {
+const RhinoModel = ({ url, verbose = false, ...props }) => {
   const [model, setModel] = useState(null);
   const [error, setError] = useState(null);
   const groupRef = useRef();
@@ -15,22 +14,23 @@ const RhinoModel = ({ url, ...props }) => {
     loader.load(
       url,
       (loadedModel) => {
-        console.log("Model loaded successfully:", loadedModel);
+        if (verbose) console.log("Model loaded successfully:", loadedModel);
         try {
           // Correct the orientation
           loadedModel.rotateX(-Math.PI / 2);
 
           loadedModel.traverse((child) => {
             if (child.isMesh) {
-              console.log("Mesh found:", child);
+              if (verbose) console.log("Mesh found:", child);
 
               // Ensure the material is MeshPhongMaterial for better rendering
               if (!(child.material instanceof THREE.MeshPhongMaterial)) {
                 const color = child.material.color;
                 child.material = new THREE.MeshPhongMaterial({
                   color: color,
-                  shininess: 30,
-                  specular: 0x111111,
+                  shininess: 10,
+                  specular: "#3c2a1f",
+                  toneMapped: true,
                 });
               }
 
@@ -38,7 +38,7 @@ const RhinoModel = ({ url, ...props }) => {
               child.castShadow = true;
               child.receiveShadow = true;
             } else if (child.isLine) {
-              console.log("Line found:", child);
+              if (verbose) console.log("Line found:", child);
               // Ensure lines are visible
               child.material.color.setHex(0xffffff);
               child.material.linewidth = 2;
@@ -52,7 +52,7 @@ const RhinoModel = ({ url, ...props }) => {
         }
       },
       (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
+        if (verbose) console.log((xhr.loaded / xhr.total) * 100 + "% loaded");
       },
       (err) => {
         console.error("Error loading model:", err);

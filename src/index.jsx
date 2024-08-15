@@ -5,6 +5,15 @@ import ReactDOM from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
 import { StrictMode } from "react";
 import { Leva } from "leva";
+import {
+  EffectComposer,
+  Bloom,
+  SMAA,
+  N8AO,
+  Autofocus,
+} from "@react-three/postprocessing";
+import { KernelSize } from "postprocessing";
+import { SunProvider } from "./SunContext.jsx";
 
 const root = ReactDOM.createRoot(document.querySelector("#root"));
 const cameraSettings = {
@@ -17,9 +26,27 @@ const cameraSettings = {
 root.render(
   <StrictMode>
     <Leva collapsed />
-    <Canvas shadows camera={cameraSettings}>
-      <axesHelper scale={500} />
-      <Scene />
-    </Canvas>
+    <SunProvider>
+      <Canvas shadows camera={cameraSettings}>
+        <Scene />
+        <EffectComposer disableNormalPass multisampling={0}>
+          <Bloom
+            intensity={0.5}
+            luminanceThreshold={0.7}
+            luminanceSmoothing={0.75}
+            height={300}
+            kernelSize={KernelSize.LARGE}
+          />
+          <N8AO
+            color={"black"}
+            aoRadius={2}
+            intensity={1}
+            aoSamples={6}
+            denoiseSamples={4}
+          />
+          <SMAA />
+        </EffectComposer>
+      </Canvas>
+    </SunProvider>
   </StrictMode>,
 );
