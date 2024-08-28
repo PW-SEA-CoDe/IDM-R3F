@@ -28,6 +28,7 @@ const Slider = ({
         step={step}
         value={value}
         onChange={handleChange}
+        name="sunSlider"
         className="slider"
       />
       <span className="slider-value">{value}</span>

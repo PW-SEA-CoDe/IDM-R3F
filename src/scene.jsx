@@ -12,7 +12,7 @@ const buildingOneURL = "/models/buildingOne.3dm";
 const buildingTwoURL = "/models/buildingTwo.3dm";
 const buildingThreeURL = "/models/buildingThree.3dm";
 
-const Scene = () => {
+export default function Scene() {
   const { perfVisible } = useControls({
     perfVisible: false,
   });
@@ -25,7 +25,7 @@ const Scene = () => {
 
   return (
     <>
-      {perfVisible && <Perf position="top-left" />}
+      {perfVisible && <Perf position="bottom-right" />}
       <OrbitControls makeDefault />
       <Sky position={skyPosition} distance={45000} />
       <Sun position={sunPosition} animationSpeed={sunSpeed} />
@@ -53,6 +53,4 @@ const Scene = () => {
       </Suspense>
     </>
   );
-};
-
-export default Scene;
+}
