@@ -1,10 +1,5 @@
-import { Suspense, useRef } from "react";
-import {
-  Sky,
-  SoftShadows,
-  OrbitControls,
-  BakeShadows,
-} from "@react-three/drei";
+import { Suspense } from "react";
+import { Sky, SoftShadows, OrbitControls } from "@react-three/drei";
 import { useControls } from "leva";
 import { Perf } from "r3f-perf";
 import { ContactShadows } from "@react-three/drei";
@@ -17,9 +12,9 @@ const buildingOneURL = "/models/buildingOne.3dm";
 const buildingTwoURL = "/models/buildingTwo.3dm";
 const buildingThreeURL = "/models/buildingThree.3dm";
 
-export default function Scene() {
+const Scene = () => {
   const { perfVisible } = useControls({
-    perfVisible: true,
+    perfVisible: false,
   });
   const { sunPosition, sunSpeed } = useControls("sun", {
     sunPosition: { value: [-200, -200, 400] },
@@ -44,7 +39,6 @@ export default function Scene() {
         blur={1.5}
         far={20}
       />
-
       <Suspense>
         <RhinoModel url={contextURL} />
       </Suspense>
@@ -59,4 +53,6 @@ export default function Scene() {
       </Suspense>
     </>
   );
-}
+};
+
+export default Scene;

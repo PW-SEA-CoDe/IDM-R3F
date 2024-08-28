@@ -1,16 +1,11 @@
 import "./index.css";
 import Scene from "./scene.jsx";
+import Slider from "./components/UI/Slider/Slider.jsx";
 
 import ReactDOM from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
 import { Leva } from "leva";
-import {
-  EffectComposer,
-  Bloom,
-  SMAA,
-  N8AO,
-  Autofocus,
-} from "@react-three/postprocessing";
+import { EffectComposer, Bloom, SMAA, N8AO } from "@react-three/postprocessing";
 import { KernelSize } from "postprocessing";
 import { SunProvider } from "./SunContext.jsx";
 
@@ -47,5 +42,6 @@ root.render(
         </EffectComposer>
       </Canvas>
     </SunProvider>
+    <Slider />
   </>,
 );
