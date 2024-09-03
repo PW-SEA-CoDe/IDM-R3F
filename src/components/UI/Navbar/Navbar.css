@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+
+  background-color: white;
+}
+
+.hamburger {
+  height: 32px;
+  width: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: #000000 1px solid;
+  border-radius: 4px;
+}
+
+.hamburger:hover {
+  outline-color: transparent;
+  outline-style: solid;
+  box-shadow: 0 0 0 2px #5a01a7;
+  transition: 0.25s;
+}
+
+.hamburger:focus {
+}
+
+.blank {
+  padding: 8px 12px;
+}
+
+.title {
+  font-family: monospace;
+  font-size: 1em;
+  color: blue;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+}

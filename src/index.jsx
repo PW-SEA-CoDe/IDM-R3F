@@ -1,6 +1,6 @@
 import "./index.css";
 import Scene from "./scene.jsx";
-import Slider from "./components/UI/Slider/Slider.jsx";
+import HUD from "./components/UI/HUD/HUD.jsx";
 
 import ReactDOM from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
@@ -42,6 +42,6 @@ root.render(
         </EffectComposer>
       </Canvas>
     </SunProvider>
-    <Slider />
+    <HUD />
   </>,
 );
