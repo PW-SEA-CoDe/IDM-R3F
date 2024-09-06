@@ -1,0 +1,29 @@
+.hamburger {
+  height: 32px;
+  width: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: grey 1px solid;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.hamburger:hover {
+  outline-color: transparent;
+  outline-style: solid;
+  box-shadow: 0 0 0 1px #000;
+  transition: 0.15s;
+}
+
+.hamburger:focus {
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+
+  background-color: white;
+}

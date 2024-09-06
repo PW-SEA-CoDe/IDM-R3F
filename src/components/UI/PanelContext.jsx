@@ -2,6 +2,8 @@ import { createContext, useState, useContext } from "react";
 
 const PanelContext = createContext();
 
+export const usePanelContext = () => useContext(PanelContext);
+
 export const PanelProvider = ({ children }) => {
   const [panels, setPanels] = useState({
     left: false,
@@ -9,7 +11,10 @@ export const PanelProvider = ({ children }) => {
   });
 
   const togglePanel = (position) => {
-    setPanels((prev) => ({ ...prev, [position]: !prev[position] }));
+    setPanels((prev) => ({
+      ...prev,
+      [position]: !prev[position],
+    }));
   };
 
   const getPanelState = (position) => panels[position];
@@ -19,12 +24,4 @@ export const PanelProvider = ({ children }) => {
       {children}
     </PanelContext.Provider>
   );
-};
-
-export const usePanel = () => {
-  const context = useContext(PanelContext);
-  if (context === undefined) {
-    throw new Error("usePanel must be used within a PanelProvider");
-  }
-  return context;
 };

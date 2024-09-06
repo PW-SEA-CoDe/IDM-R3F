@@ -1,9 +1,9 @@
-import { usePanel } from "../PanelContext";
+import { usePanelContext } from "../PanelContext";
 
 import "./MenuButton.css";
 
 const MenuButton = ({ position }) => {
-  const { togglePanel } = usePanel();
+  const { togglePanel, getPanelState } = usePanelContext();
 
   return (
     <button

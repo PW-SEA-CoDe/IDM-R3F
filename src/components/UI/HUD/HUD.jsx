@@ -10,9 +10,9 @@ const HUD = () => {
     <PanelProvider>
       <div className="hud">
         <Navbar title="UI Test" />
-        <div className="panel-container">
-          <Panel position="left" />
-          <Panel position="right" />
+        <div className="ui-container">
+          <Panel position="left"></Panel>
+          <Panel position="right"></Panel>
         </div>
       </div>
     </PanelProvider>
