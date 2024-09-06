@@ -1,4 +1,7 @@
 .hamburger {
+  /* add this on any interactive elements */
+  pointer-events: auto;
+
   height: 32px;
   width: 48px;
 

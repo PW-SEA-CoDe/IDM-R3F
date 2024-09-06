@@ -20,7 +20,7 @@ const cameraSettings = {
 root.render(
   <>
     <Leva hidden />
-    {/* <SunProvider>
+    <SunProvider>
       <Canvas shadows camera={cameraSettings}>
         <Scene />
         <EffectComposer disableNormalPass multisampling={0}>
@@ -41,7 +41,7 @@ root.render(
           <SMAA />
         </EffectComposer>
       </Canvas>
-    </SunProvider> */}
+    </SunProvider>
     <HUD />
   </>,
 );
