@@ -7,6 +7,7 @@ import { ContactShadows } from "@react-three/drei";
 import { useSunContext } from "./SunContext";
 import RhinoModel from "./components/RhinoModel";
 import Sun from "./components/Sun";
+
 const contextURL = "/models/context.3dm";
 const buildingOneURL = "/models/buildingOne.3dm";
 const buildingTwoURL = "/models/buildingTwo.3dm";
@@ -16,10 +17,6 @@ export default function Scene() {
   const { perfVisible } = useControls({
     perfVisible: false,
   });
-  const { sunPosition, sunSpeed } = useControls("sun", {
-    sunPosition: { value: [-200, -200, 400] },
-    sunSpeed: 0.05,
-  });
 
   const { skyPosition } = useSunContext();
 
@@ -28,7 +25,7 @@ export default function Scene() {
       {perfVisible && <Perf position="bottom-right" />}
       <OrbitControls makeDefault />
       <Sky position={skyPosition} distance={45000} />
-      <Sun position={sunPosition} animationSpeed={sunSpeed} />
+      <Sun position={skyPosition} />
       <ambientLight intensity={1.5} />
       <SoftShadows size={25} samples={10} />
       <ContactShadows
