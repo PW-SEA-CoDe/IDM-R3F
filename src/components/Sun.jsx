@@ -2,7 +2,12 @@ import { useRef } from "react";
 import * as THREE from "three";
 import { useHelper } from "@react-three/drei";
 
-import { colorTemperatureToRGB } from "../lib/utils";
+import {
+  calculateSunProperties,
+  colorTemperatureToRGB,
+  sunPositionToCartesian,
+} from "../lib/utils";
+import { useSunContext } from "../SunContext";
 
 const Sun = ({
   position,
@@ -13,6 +18,11 @@ const Sun = ({
 }) => {
   const lightRef = useRef();
   const sphereRef = useRef();
+
+  // const { sunPosition } = useSunContext();
+  // const cartSunPosition = sunPositionToCartesian(sunPosition);
+
+  // const {sunBrightness, sunTemperature} = calculateSunProperties(elevation)
 
   const sunColor = colorTemperatureToRGB(temperature);
 
