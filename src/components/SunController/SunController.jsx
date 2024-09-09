@@ -4,14 +4,12 @@ import { useSunContext } from "../../SunContext";
 import { calculateSunPosition, sunPositionToCartesian } from "../../lib/utils";
 
 import "./SunController.css";
+import LocationButton from "./LocationButton/LocationButton";
 
-const SunController = () => {
+// default latitude and longitude to seattle
+const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
   const [time, setTime] = useState(new Date());
   const { setSunPosition } = useSunContext();
-
-  // seattle example
-  const latitude = 47.6061;
-  const longitude = 122.3328;
 
   const updateSunPosition = useCallback(() => {
     const { elevation, azimuth } = calculateSunPosition(
@@ -43,8 +41,34 @@ const SunController = () => {
 
   return (
     <div className="sun-controller">
-      <h3>Sun Position</h3>
-      <p>Time of Day: {formatTime(time.getHours() * 60 + time.getMinutes())}</p>
+      <h3 className="component-header">Solar Controls</h3>
+      <div className="columns spaced-out">
+        <p className="component-body">Project location: </p>
+        <LocationButton />
+      </div>
+      <div className="location-input-container">
+        <label htmlFor="lat">
+          {/* Lat: */}
+          <input
+            id="lat"
+            type="text"
+            className="location-text"
+            placeholder="47.6061"
+          />
+        </label>
+        <label htmlFor="lat">
+          {/* Long: */}
+          <input
+            id="long"
+            type="text"
+            className="location-text"
+            placeholder="122.3328"
+          />
+        </label>
+      </div>
+      <p className="component-body">
+        Time: {formatTime(time.getHours() * 60 + time.getMinutes())}
+      </p>
       <Slider
         min={0}
         max={1439}

@@ -11,3 +11,13 @@ body,
 body {
   margin: 0;
 }
+
+.columns {
+  display: flex;
+  flex-direction: row;
+}
+
+.spaced-out {
+  justify-content: space-between;
+  align-items: center;
+}

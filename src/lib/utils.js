@@ -54,11 +54,9 @@ export const sunPositionToCartesian = (elevation, azimuth, distance = 1000) => {
 
 export const calculateSunProperties = (elevation) => {
   const normalizedElevation = Math.max(0, Math.min(elevation / 90, 1));
-  const brightness = Math.pow(normalizedElevation, 2); // quadratic falloff for more realistic lighting
-
-  // Temperature calculation (kelvin) - cooler (redder) at horizon, warmer (whiter) at zenith
-  const minTemp = 2000; // Color temperature at horizon (sunrise/sunset)
-  const maxTemp = 6000; // Color temperature at zenith (midday)
+  const brightness = Math.pow(normalizedElevation, 2);
+  const minTemp = 2000; // color temperature at horizon (sunrise/sunset)
+  const maxTemp = 6000; // color temperature at zenith (midday)
   const temperature = minTemp + (maxTemp - minTemp) * normalizedElevation;
 
   return { brightness, temperature };

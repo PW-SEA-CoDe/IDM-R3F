@@ -10,7 +10,7 @@ const HUD = () => {
   return (
     <PanelProvider>
       <div className="hud">
-        <Navbar title="UI Test" />
+        <Navbar title="Application Title" />
         <div className="ui-container">
           <Panel position="left">
             <SunController />
