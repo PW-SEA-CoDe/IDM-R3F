@@ -20,13 +20,9 @@
   overflow: hidden;
 
   border-radius: 12px;
-  background-color: var(--frosted-bg-color);
-  border: 1px solid var(--pw-lightgray);
-  filter: drop-shadow(0 0 0.75rem var(--pw-lightgray));
-
-  /* box-shadow: 0 7px 20px 5px #00000088; */
-  backdrop-filter: blur(7px);
-  -webkit-backdrop-filter: blur(7px);
+  background-color: rgba(255, 255, 255, 0.6);
+  /* border: 1px solid blue; */
+  filter: drop-shadow(0 0 0.75rem lightgray);
 }
 
 .left {

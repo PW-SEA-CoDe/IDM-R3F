@@ -9,9 +9,9 @@
   align-items: center;
   justify-content: center;
 
-  border: grey 1px solid;
+  border: var(--pw-orange) 1px solid;
   border-radius: 8px;
-  background-color: white;
+  background-color: var(--frosted-bg-color);
 }
 
 .hamburger:hover {
@@ -27,6 +27,5 @@
 .menu-icon {
   width: 24px;
   height: 24px;
-
-  background-color: white;
+  background-color: var(--frosted-bg-color);
 }

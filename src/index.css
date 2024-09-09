@@ -1,3 +1,16 @@
+:root {
+  --frosted-bg-color: rgba(255, 255, 255, 0.77);
+  --pw-blue: #1818a5;
+  --pw-teal: #009b77;
+  --pw-pink: #ab008b;
+  --pw-purple: #6638bd;
+  --pw-orange: #f26344;
+  --pw-lightgray: #bfbfbf;
+  --pw-gray: #737373;
+  --pw-darkgray: #262626;
+  --pw-black: #000000;
+}
+
 html,
 body,
 #root {
@@ -10,6 +23,19 @@ body,
 
 body {
   margin: 0;
+}
+
+.card {
+  padding: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: space-between;
+}
+
+.interactive {
+  pointer-events: auto;
 }
 
 .columns {

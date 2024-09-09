@@ -1,3 +1,16 @@
 .location-button {
   height: 24px;
+  padding: 12px 24px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: black;
+  border: 1px solid var(--pw-orange);
+  border-radius: 8px;
+}
+
+.button-body {
+  font-weight: bold;
 }

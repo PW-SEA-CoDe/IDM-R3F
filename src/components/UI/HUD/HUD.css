@@ -19,3 +19,8 @@
   gap: 16px;
   margin: 16px;
 }
+
+p {
+  color: var(--pw-darkgray);
+  font-family: Arial, Helvetica, sans-serif;
+}
