@@ -12,6 +12,7 @@
 
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 1);
+  filter: drop-shadow(0 0 0.75rem lightgray);
 }
 
 .title {

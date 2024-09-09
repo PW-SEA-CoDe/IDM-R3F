@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import SunCalc from "suncalc";
 
 export const colorTemperatureToRGB = (kelvin) => {
   const temp = kelvin / 100;
@@ -30,51 +31,14 @@ export const colorTemperatureToRGB = (kelvin) => {
 };
 
 export const calculateSunPosition = (date, latitude, longitude) => {
-  // Convert latitude and longitude to radians
-  const lat = (latitude * Math.PI) / 180;
-  const lon = (longitude * Math.PI) / 180;
+  const { azimuth, altitude } = SunCalc.getPosition(date, latitude, longitude);
+  const azimuthDegrees = (azimuth * (180 / Math.PI) + 360) % 360;
+  const elevationDegrees = altitude * (180 / Math.PI);
 
-  // Get day of the year
-  const start = new Date(date.getFullYear(), 0, 0);
-  const diff = date - start;
-  const oneDay = 1000 * 60 * 60 * 24;
-  const dayOfYear = Math.floor(diff / oneDay);
-
-  // Calculate solar declination
-  const declination =
-    0.4093 * Math.sin((2 * Math.PI * (284 + dayOfYear)) / 365);
-
-  // Calculate equation of time
-  const b = (2 * Math.PI * (dayOfYear - 81)) / 364;
-  const eot = 9.87 * Math.sin(2 * b) - 7.53 * Math.cos(b) - 1.5 * Math.sin(b);
-
-  // Calculate true solar time
-  const localTime = date.getHours() + date.getMinutes() / 60;
-  const solarTime = localTime + (4 * longitude) / 60 + eot / 60;
-
-  // Calculate solar hour angle
-  const hourAngle = ((solarTime - 12) * 15 * Math.PI) / 180;
-
-  // Calculate solar elevation
-  const sinElevation =
-    Math.sin(lat) * Math.sin(declination) +
-    Math.cos(lat) * Math.cos(declination) * Math.cos(hourAngle);
-  const elevation = Math.asin(sinElevation);
-
-  // Calculate solar azimuth
-  const cosAzimuth =
-    (Math.sin(declination) - Math.sin(lat) * sinElevation) /
-    (Math.cos(lat) * Math.cos(elevation));
-  let azimuth = Math.acos(cosAzimuth);
-  if (hourAngle > 0) {
-    azimuth = 2 * Math.PI - azimuth;
-  }
-
-  // Convert elevation and azimuth to degrees
-  const elevationDeg = (elevation * 180) / Math.PI;
-  const azimuthDeg = (azimuth * 180) / Math.PI;
-
-  return { elevation: elevationDeg, azimuth: azimuthDeg };
+  return {
+    elevation: elevationDegrees,
+    azimuth: azimuthDegrees,
+  };
 };
 
 export const sunPositionToCartesian = (elevation, azimuth, distance = 1000) => {
@@ -86,4 +50,16 @@ export const sunPositionToCartesian = (elevation, azimuth, distance = 1000) => {
   const z = -distance * Math.cos(elevationRad) * Math.cos(azimuthRad);
 
   return [x, y, z];
+};
+
+export const calculateSunProperties = (elevation) => {
+  const normalizedElevation = Math.max(0, Math.min(elevation / 90, 1));
+  const brightness = Math.pow(normalizedElevation, 2); // quadratic falloff for more realistic lighting
+
+  // Temperature calculation (kelvin) - cooler (redder) at horizon, warmer (whiter) at zenith
+  const minTemp = 2000; // Color temperature at horizon (sunrise/sunset)
+  const maxTemp = 6000; // Color temperature at zenith (midday)
+  const temperature = minTemp + (maxTemp - minTemp) * normalizedElevation;
+
+  return { brightness, temperature };
 };

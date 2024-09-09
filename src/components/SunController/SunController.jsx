@@ -9,9 +9,9 @@ const SunController = () => {
   const [time, setTime] = useState(new Date());
   const { setSunPosition } = useSunContext();
 
-  // Example latitude and longitude (New York City)
-  const latitude = 40.7128;
-  const longitude = -74.006;
+  // seattle example
+  const latitude = 47.6061;
+  const longitude = 122.3328;
 
   const updateSunPosition = useCallback(() => {
     const { elevation, azimuth } = calculateSunPosition(
@@ -20,6 +20,7 @@ const SunController = () => {
       longitude,
     );
     const position = sunPositionToCartesian(elevation, azimuth);
+    console.log(position);
     setSunPosition(position);
   }, [time, setSunPosition]);
 
