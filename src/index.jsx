@@ -1,6 +1,6 @@
 import "./index.css";
-import Scene from "./scene.jsx";
-import HUD from "./components/UI/HUD/HUD.jsx";
+import Scene from "./Scene.jsx";
+import GUI from "./components/GUI/GUI";
 
 import ReactDOM from "react-dom/client";
 import { Canvas } from "@react-three/fiber";
@@ -41,7 +41,7 @@ root.render(
           <SMAA />
         </EffectComposer>
       </Canvas>
-      <HUD />
+      <GUI />
     </SunProvider>
   </>,
 );

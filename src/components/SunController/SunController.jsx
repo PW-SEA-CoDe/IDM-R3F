@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import Slider from "../UI/Slider/Slider";
+import Slider from "../UI-primitives/Slider/Slider";
 import { useSunContext } from "../../SunContext";
 import { calculateSunPosition, sunPositionToCartesian } from "../../lib/utils";
 
