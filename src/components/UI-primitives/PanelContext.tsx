@@ -1,6 +1,6 @@
 import { createContext, useState, useContext } from "react";
 
-const PanelContext = createContext();
+const PanelContext = createContext(null);
 
 export const usePanelContext = () => useContext(PanelContext);
 

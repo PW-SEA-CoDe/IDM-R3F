@@ -1,8 +1,14 @@
 import { usePanelContext } from "../PanelContext";
+import { ReactNode } from "react";
 
 import "./Panel.css";
 
-const Panel = ({ position, children }) => {
+type Props = {
+  position: string;
+  children: ReactNode;
+};
+
+const Panel = ({ position, children }: Props) => {
   const { getPanelState } = usePanelContext();
   const isOpen = getPanelState(position);
 
