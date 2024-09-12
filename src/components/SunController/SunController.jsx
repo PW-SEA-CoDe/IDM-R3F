@@ -35,7 +35,7 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
     console.log("bri: ", brightness);
     console.log("temp: ", temperature);
     setSunPosition(position);
-    setSunBrightness(brightness);
+    setSunBrightness(1 + brightness);
     setSunTemperature(temperature);
   }, [time, setSunPosition]);
 

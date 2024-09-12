@@ -31,6 +31,7 @@ export const colorTemperatureToRGB = (kelvin) => {
 };
 
 export const calculateSunPosition = (date, latitude, longitude) => {
+  console.log(date);
   const { azimuth, altitude } = SunCalc.getPosition(date, latitude, longitude);
 
   return {
@@ -47,6 +48,8 @@ export const sunPositionToCartesian = (elevation, azimuth, distance = 1500) => {
   return [x, y, z];
 };
 
+//BUG: color is not applying at correct interval. this may
+// be an issue with the calculateSunPosition function instead.
 export const calculateSunProperties = (elevation) => {
   const elevationDeg = elevation * (180 / Math.PI);
   const normalizedElevation = Math.max(0, Math.min(elevationDeg / 90, 1));

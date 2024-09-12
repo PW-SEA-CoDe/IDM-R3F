@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Rhino3dmLoader } from "three/examples/jsm/loaders/3DMLoader";
 import * as THREE from "three";
 
