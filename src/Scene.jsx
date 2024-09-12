@@ -18,14 +18,22 @@ export default function Scene() {
     perfVisible: false,
   });
 
-  const { skyPosition } = useSunContext();
+  const { pos, bright, temp } = useSunContext();
+
+  const [sunPosition] = pos;
+  const [sunBrightness] = bright;
+  const [sunTemperature] = temp;
 
   return (
     <>
       {perfVisible && <Perf position="bottom-right" />}
       <OrbitControls makeDefault />
-      <Sky position={skyPosition} distance={45000} />
-      <Sun position={skyPosition} />
+      <Sky position={sunPosition} distance={45000} />
+      <Sun
+        position={sunPosition}
+        temperature={sunTemperature}
+        intensity={sunBrightness}
+      />
       <ambientLight intensity={1.5} />
       <SoftShadows size={25} samples={10} />
       <ContactShadows

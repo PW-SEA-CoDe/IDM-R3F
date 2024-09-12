@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import Slider from "../UI-primitives/Slider/Slider";
 import { useSunContext } from "../../SunContext";
-import { calculateSunPosition, sunPositionToCartesian } from "../../lib/utils";
+import {
+  calculateSunPosition,
+  calculateSunProperties,
+  sunPositionToCartesian,
+} from "../../lib/utils";
 
 import "./SunController.css";
 import LocationButton from "./LocationButton/LocationButton";
@@ -12,7 +16,12 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
   const [location, setLocation] = useState({ lat: null, long: null });
   const [latText, setLatText] = useState("47.6061");
   const [longText, setLongText] = useState("122.3328");
-  const { setSunPosition } = useSunContext();
+
+  const { pos, bright, temp } = useSunContext();
+
+  const [, setSunPosition] = pos;
+  const [, setSunBrightness] = bright;
+  const [, setSunTemperature] = temp;
 
   const updateSunPosition = useCallback(() => {
     const { elevation, azimuth } = calculateSunPosition(
@@ -21,8 +30,13 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
       longitude,
     );
     const position = sunPositionToCartesian(elevation, azimuth);
-    console.log(position);
+    const { brightness, temperature } = calculateSunProperties(elevation);
+    console.log("pos: ", position);
+    console.log("bri: ", brightness);
+    console.log("temp: ", temperature);
     setSunPosition(position);
+    setSunBrightness(brightness);
+    setSunTemperature(temperature);
   }, [time, setSunPosition]);
 
   useEffect(() => {

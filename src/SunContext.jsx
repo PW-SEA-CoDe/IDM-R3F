@@ -1,15 +1,21 @@
 // SunContext.js
-import React, { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext } from "react";
 
 const SunContext = createContext();
 
 export const SunProvider = ({ children }) => {
-  const [skyPosition, setSunPosition] = useState([0, 0, 0]);
+  const [sunPosition, setSunPosition] = useState([0, 0, 0]);
+  const [sunBrightness, setSunBrightness] = useState(1);
+  const [sunTemperature, setSunTemperature] = useState(5778);
+
+  const sunValues = {
+    pos: [sunPosition, setSunPosition],
+    bright: [sunBrightness, setSunBrightness],
+    temp: [sunTemperature, setSunTemperature],
+  };
 
   return (
-    <SunContext.Provider value={{ skyPosition, setSunPosition }}>
-      {children}
-    </SunContext.Provider>
+    <SunContext.Provider value={sunValues}>{children}</SunContext.Provider>
   );
 };
 
