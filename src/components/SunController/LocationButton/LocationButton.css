@@ -9,6 +9,8 @@
   color: black;
   border: 1px solid var(--pw-orange);
   border-radius: 8px;
+
+  cursor: pointer;
 }
 
 .button-body {

@@ -24,3 +24,11 @@ p {
   color: var(--pw-darkgray);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.gui * {
+  /* Disable text selection */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
