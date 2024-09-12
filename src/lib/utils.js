@@ -32,28 +32,24 @@ export const colorTemperatureToRGB = (kelvin) => {
 
 export const calculateSunPosition = (date, latitude, longitude) => {
   const { azimuth, altitude } = SunCalc.getPosition(date, latitude, longitude);
-  const azimuthDegrees = (azimuth * (180 / Math.PI) + 360) % 360;
-  const elevationDegrees = altitude * (180 / Math.PI);
 
   return {
-    elevation: elevationDegrees,
-    azimuth: azimuthDegrees,
+    elevation: altitude,
+    azimuth: azimuth,
   };
 };
 
-export const sunPositionToCartesian = (elevation, azimuth, distance = 1000) => {
-  const elevationRad = (elevation * Math.PI) / 180;
-  const azimuthRad = (azimuth * Math.PI) / 180;
-
-  const x = distance * Math.cos(elevationRad) * Math.sin(azimuthRad);
-  const y = distance * Math.sin(elevationRad);
-  const z = -distance * Math.cos(elevationRad) * Math.cos(azimuthRad);
+export const sunPositionToCartesian = (elevation, azimuth, distance = 1500) => {
+  const x = distance * Math.cos(elevation) * Math.cos(azimuth);
+  const y = -distance * Math.cos(elevation) * Math.sin(azimuth);
+  const z = distance * Math.sin(elevation);
 
   return [x, y, z];
 };
 
 export const calculateSunProperties = (elevation) => {
-  const normalizedElevation = Math.max(0, Math.min(elevation / 90, 1));
+  const elevationDeg = elevation * (180 / Math.PI);
+  const normalizedElevation = Math.max(0, Math.min(elevationDeg / 90, 1));
   const brightness = Math.pow(normalizedElevation, 2);
   const minTemp = 2000; // color temperature at horizon (sunrise/sunset)
   const maxTemp = 6000; // color temperature at zenith (midday)
