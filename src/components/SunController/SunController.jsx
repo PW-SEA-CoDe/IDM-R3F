@@ -11,11 +11,23 @@ import "./SunController.css";
 import LocationButton from "./LocationButton/LocationButton";
 
 // default latitude and longitude to seattle
-const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
-  const [time, setTime] = useState(new Date());
+const SunController = ({ latitude = 47.6061, longitude = -122.3328 }) => {
+  const [date, setDate] = useState(() => {
+    const currentDate = new Date();
+    const currentTime = currentDate.getHours();
+    //TODO: update logic to check between sunrise/sunset (use suncalc)
+    if (currentTime < 8 || currentTime > 19) {
+      const newDate = currentDate.setHours(12, 0, 0);
+      console.log("time before 8 or after 19, setting time to: " + newDate);
+      return newDate;
+    }
+    console.log("current time during daylight, using current time");
+    return new Date();
+  });
+
   const [location, setLocation] = useState({ lat: null, long: null });
   const [latText, setLatText] = useState("47.6061");
-  const [longText, setLongText] = useState("122.3328");
+  const [longText, setLongText] = useState("-122.3328");
 
   const { pos, bright, temp } = useSunContext();
 
@@ -23,9 +35,12 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
   const [, setSunBrightness] = bright;
   const [, setSunTemperature] = temp;
 
+  const sliderValue = date.getHours() * 60 + date.getMinutes();
+
   const updateSunPosition = useCallback(() => {
+    const localDate = new Date(date.getTime());
     const { elevation, azimuth } = calculateSunPosition(
-      time,
+      localDate,
       latitude,
       longitude,
     );
@@ -37,7 +52,14 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
     setSunPosition(position);
     setSunBrightness(1 + brightness);
     setSunTemperature(temperature);
-  }, [time, setSunPosition]);
+  }, [
+    date,
+    latitude,
+    longitude,
+    setSunPosition,
+    setSunBrightness,
+    setSunTemperature,
+  ]);
 
   useEffect(() => {
     updateSunPosition();
@@ -50,16 +72,18 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
   };
 
   const handleTimeChange = (newTime) => {
-    const date = new Date(time);
-    date.setHours(Math.floor(newTime / 60));
-    date.setMinutes(newTime % 60);
-    setTime(date);
+    const newDate = new Date(date);
+    newDate.setHours(Math.floor(newTime / 60), newTime % 60, 0, 0);
+    setDate(newDate);
   };
 
-  const formatTime = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}`;
+  const formatTime = (date) => {
+    const localTime = new Date(date.getTime());
+    return localTime.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
   };
 
   return (
@@ -87,7 +111,7 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
             id="long"
             type="text"
             className="location-text"
-            placeholder="122.3328"
+            placeholder="-122.3328"
             value={longText}
             onChange={setLongText}
           />
@@ -96,15 +120,13 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
 
       <div className="component-horizontal-container">
         <p className="component-subheader">Time:</p>
-        <span className="component-body">
-          {" " + formatTime(time.getHours() * 60 + time.getMinutes())}
-        </span>
+        <span className="component-body">{" " + formatTime(date)}</span>
       </div>
       <Slider
         min={0}
         max={1439}
         step={1}
-        initialValue={time.getHours() * 60 + time.getMinutes()}
+        initialValue={sliderValue}
         onChange={handleTimeChange}
       />
     </div>
