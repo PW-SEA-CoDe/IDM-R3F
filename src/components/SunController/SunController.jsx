@@ -65,9 +65,11 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
   return (
     <div className="sun-controller card">
       <h3 className="component-header">Solar Controls</h3>
-      <p className="component-body">Location: </p>
-      <LocationButton onLocationChange={handleLocationChange} />
-      <div className="location-input">
+      <div className="component-horizontal-container">
+        <p className="component-subheader">Position: </p>
+        <LocationButton onLocationChange={handleLocationChange} />
+      </div>
+      <div className="component-horizontal-container">
         <label htmlFor="lat">
           {/* Lat: */}
           <input
@@ -79,7 +81,7 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
             onChange={setLatText}
           />
         </label>
-        <label htmlFor="lat">
+        <label htmlFor="long">
           {/* Long: */}
           <input
             id="long"
@@ -91,10 +93,13 @@ const SunController = ({ latitude = 47.6061, longitude = 122.3328 }) => {
           />
         </label>
       </div>
-      <div className="location-input-container"></div>
-      <p className="component-body">
-        Time: {formatTime(time.getHours() * 60 + time.getMinutes())}
-      </p>
+
+      <div className="component-horizontal-container">
+        <p className="component-subheader">Time:</p>
+        <span className="component-body">
+          {" " + formatTime(time.getHours() * 60 + time.getMinutes())}
+        </span>
+      </div>
       <Slider
         min={0}
         max={1439}

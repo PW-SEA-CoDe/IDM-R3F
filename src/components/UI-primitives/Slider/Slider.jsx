@@ -16,6 +16,7 @@ const Slider = ({
     setValue(newValue);
     if (onChange) {
       onChange(newValue);
+      console.log("timevalue: " + newValue);
     }
   };
 
@@ -31,7 +32,6 @@ const Slider = ({
         name="sunSlider"
         className="slider"
       />
-      <span className="slider-value">{value}</span>
     </div>
   );
 };

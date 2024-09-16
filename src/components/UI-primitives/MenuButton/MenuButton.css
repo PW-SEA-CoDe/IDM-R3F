@@ -1,24 +1,29 @@
 .hamburger {
   /* add this on any interactive elements */
   pointer-events: auto;
+  cursor: pointer;
 
-  height: 32px;
-  width: 48px;
+  height: 36px;
+  width: 36px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 
-  border: var(--pw-orange) 1px solid;
+  border: 1px solid rgb(230, 230, 230);
+  color: rgb(45, 45, 45);
   border-radius: 8px;
-  background-color: var(--frosted-bg-color);
+  background-color: rgb(246, 246, 246);
+  font-family:
+    Roboto,
+    -apple-system,
+    system-ui;
 }
 
 .hamburger:hover {
-  outline-color: transparent;
-  outline-style: solid;
-  box-shadow: 0 0 0 1px #000;
-  transition: 0.15s;
+  background-color: rgb(237, 237, 237);
+  transition: all 0.15s ease-out 0s;
 }
 
 .hamburger:focus {
@@ -27,5 +32,5 @@
 .menu-icon {
   width: 24px;
   height: 24px;
-  background-color: var(--frosted-bg-color);
+  background-color: transparent;
 }

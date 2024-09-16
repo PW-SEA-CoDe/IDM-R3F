@@ -10,14 +10,9 @@
   padding: 8px 16px;
   margin: 16px 16px 0px 16px;
 
-  border-radius: 12px;
+  border-radius: 8px;
   background-color: var(--frosted-bg-color);
-  filter: drop-shadow(0 0 0.75rem lightgray);
-}
-
-.title {
-  font-family: monospace;
-  font-size: 1.6em;
+  filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 2px 8px);
 }
 
 .blank {

@@ -1,5 +1,5 @@
 :root {
-  --frosted-bg-color: rgba(255, 255, 255, 0.77);
+  --frosted-bg-color: rgba(255, 255, 255, 0.95);
   --pw-blue: #1818a5;
   --pw-teal: #009b77;
   --pw-pink: #ab008b;
@@ -25,8 +25,25 @@ body {
   margin: 0;
 }
 
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+span,
+input {
+  font-family:
+    Roboto,
+    -apple-system,
+    system-ui;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
 .card {
-  padding: 8px;
+  margin: 8px 8px 24px;
+  border-bottom: 0.8px solid rgb(217, 217, 217);
 
   display: flex;
   flex-direction: column;
@@ -36,6 +53,76 @@ body {
 
 .interactive {
   pointer-events: auto;
+}
+
+.title {
+  font-size: 1.4em;
+  font-family:
+    Roboto,
+    -apple-system,
+    system-ui;
+  font-weight: 700;
+}
+
+.component-header {
+  margin: 0 0 16px;
+  min-height: 30px;
+  font-size: 1.2em;
+  letter-spacing: 2.5px;
+  line-height: 20px;
+
+  font-family:
+    Roboto,
+    -apple-system,
+    system-ui;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: rgb(45, 45, 45);
+}
+
+.component-subheader {
+  margin-top: 0;
+  font-size: 1em;
+  font-family:
+    Roboto,
+    -apple-system,
+    system-ui;
+  font-weight: 600;
+}
+
+.component-body {
+  margin-top: 0;
+  font-size: 1em;
+  font-family:
+    Roboto,
+    -apple-system,
+    system-ui;
+  font-weight: 400;
+}
+
+.component-horizontal-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 8px;
+
+  font-family:
+    Roboto,
+    -apple-system,
+    system-ui;
+}
+
+.component-horizontal-container p {
+  margin: 0;
+}
+
+.component-vertical-container {
+  display: flex;
+  justify-content: center;
+  align-items: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
 .columns {
