@@ -14,7 +14,3 @@
   background-color: var(--frosted-bg-color);
   filter: drop-shadow(rgba(0, 0, 0, 0.1) 0px 2px 8px);
 }
-
-.blank {
-  padding: 8px 12px;
-}

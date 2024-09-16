@@ -41,7 +41,7 @@ root.render(
           <SMAA />
         </EffectComposer>
       </Canvas>
-      <GUI />
+      <GUI left={true} right={false} />
     </SunProvider>
   </>,
 );
