@@ -41,10 +41,9 @@ export const calculateSunPosition = (date, latitude, longitude) => {
 };
 
 export const sunPositionToCartesian = (elevation, azimuth, distance = 1500) => {
-  const x = distance * Math.cos(elevation) * Math.cos(azimuth);
-  const y = -distance * Math.cos(elevation) * Math.sin(azimuth);
-  const z = distance * Math.sin(elevation);
-
+  const x = distance * Math.cos(elevation) * Math.sin(azimuth);
+  const y = distance * Math.sin(elevation);
+  const z = -distance * Math.cos(elevation) * Math.cos(azimuth);
   return [x, y, z];
 };
 

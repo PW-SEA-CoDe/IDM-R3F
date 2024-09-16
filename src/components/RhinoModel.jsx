@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Rhino3dmLoader } from "three/examples/jsm/loaders/3DMLoader";
+import { Text } from "@react-three/drei";
 import * as THREE from "three";
 
 const RhinoModel = ({ url, verbose = false, ...props }) => {

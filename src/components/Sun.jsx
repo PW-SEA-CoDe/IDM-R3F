@@ -2,12 +2,7 @@ import { useRef } from "react";
 import * as THREE from "three";
 import { useHelper } from "@react-three/drei";
 
-import {
-  calculateSunProperties,
-  colorTemperatureToRGB,
-  sunPositionToCartesian,
-} from "../lib/utils";
-import { useSunContext } from "../SunContext";
+import { colorTemperatureToRGB } from "../lib/utils";
 
 const Sun = ({
   position,
@@ -19,11 +14,6 @@ const Sun = ({
   const lightRef = useRef();
   const sphereRef = useRef();
 
-  // const { sunPosition } = useSunContext();
-  // const cartSunPosition = sunPositionToCartesian(sunPosition);
-
-  // const {sunBrightness, sunTemperature} = calculateSunProperties(elevation)
-
   const sunColor = colorTemperatureToRGB(temperature);
 
   const directionalLight = useRef();
@@ -31,7 +21,7 @@ const Sun = ({
 
   return (
     <>
-      <group>
+      <group rotation={[0, Math.PI, 0]}>
         <directionalLight
           ref={lightRef}
           color={sunColor}
