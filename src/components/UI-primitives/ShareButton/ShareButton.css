@@ -1,28 +1,28 @@
 .share-button {
+  cursor: pointer;
+
+  height: 36px;
+  width: 36px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
+  flex-shrink: 0;
+
+  border: 0.8px solid rgb(237, 237, 237);
+  border-radius: 6px;
+  color: rgb(45, 45, 45);
+  background-color: rgb(246, 246, 246);
   transition: background-color 0.3s ease;
 }
 
 .share-button:hover {
-  background-color: #2980b9;
-}
-
-.share-button:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5);
+  background-color: rgb(237, 237, 237);
+  transition: all 0.15s ease-out 0s;
 }
 
 .share-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
+  width: 28px;
+  height: 28px;
+  background-color: transparent;
 }

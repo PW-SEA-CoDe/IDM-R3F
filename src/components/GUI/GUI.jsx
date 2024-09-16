@@ -6,11 +6,17 @@ import SunController from "../SunController/SunController";
 
 import "./GUI.css";
 
-const HUD = ({ left = true, right = false }) => {
+const GUI = ({
+  title = "Application Title",
+  left = true,
+  right = false,
+  // leftChildren = [null],
+  // rightChildren = [null],
+}) => {
   return (
     <PanelProvider>
       <div className="gui">
-        <Navbar title="Application Title" left={left} right={right} />
+        <Navbar title={title} left={left} right={right} />
         <div className="ui-container">
           <Panel position="left" exists={left}>
             <SunController />
@@ -22,4 +28,4 @@ const HUD = ({ left = true, right = false }) => {
   );
 };
 
-export default HUD;
+export default GUI;

@@ -1,5 +1,6 @@
 .sun-controller {
   pointer-events: auto;
+  margin: 0;
 }
 
 input {

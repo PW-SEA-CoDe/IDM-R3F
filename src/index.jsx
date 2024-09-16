@@ -17,6 +17,17 @@ const cameraSettings = {
   position: [-2000, 1200, 2000],
 };
 
+// TODO: update these values to customize your application
+const appDetails = {
+  appTitle: "Solar Study",
+  // set true/false to choose which sidebars to display
+  leftBar: true,
+  rightBar: false,
+  // set list to components you wish to include (as strings)
+  leftChildren: ["SunController"],
+  rightChildren: [null],
+};
+
 root.render(
   <>
     <Leva hidden />
@@ -41,7 +52,13 @@ root.render(
           <SMAA />
         </EffectComposer>
       </Canvas>
-      <GUI left={true} right={false} />
+      <GUI
+        title={appDetails.appTitle}
+        left={appDetails.leftBar}
+        right={appDetails.rightBar}
+        // leftChildren={appDetails.leftChildren}
+        // rightChildren={appDetails.rightChildren}
+      />
     </SunProvider>
   </>,
 );
