@@ -10,6 +10,8 @@ import {
 import "./SunController.css";
 import LocationButton from "./LocationButton/LocationButton";
 
+//BUG: fix sun resetting when toggling panel containing this component
+
 // default latitude and longitude to seattle
 const SunController = ({ latitude = 47.6061, longitude = -122.3328 }) => {
   const [date, setDate] = useState(() => {
