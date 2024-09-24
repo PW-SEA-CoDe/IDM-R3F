@@ -44,6 +44,7 @@ input {
 .card {
   pointer-events: auto;
   margin: 0;
+  padding-bottom: 12px;
   border-bottom: 0.8px solid rgb(217, 217, 217);
 
   display: flex;
@@ -82,6 +83,7 @@ input {
     system-ui;
   font-weight: 600;
   text-transform: uppercase;
+  text-align: center;
   color: rgb(45, 45, 45);
 }
 

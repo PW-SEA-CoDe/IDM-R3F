@@ -26,7 +26,7 @@ const LocationButton = ({ onLocationChange }) => {
   return (
     <>
       <button className="location-button" onClick={getLocation}>
-        <p className="button-body">Locate</p>
+        <p className="button-body">Set</p>
       </button>
       {error && <p>Error: {error}</p>}
     </>

@@ -10,23 +10,23 @@ const SunData = () => {
   const [sunTemperature] = temp;
 
   const [x, y, z] = sunPosition;
-  const posString = roundTo(x, 2) + ", " + roundTo(y, 2) + ", " + roundTo(z, 2);
+  const posString = roundTo(x, 0) + ", " + roundTo(y, 0) + ", " + roundTo(z, 0);
   const brightString = roundTo(sunBrightness, 2);
-  const tempString = roundTo(sunTemperature, 2);
+  const tempString = roundTo(sunTemperature, 0);
 
   return (
     <section className="card">
       <h3 className="component-header">Solar Info</h3>
-      <p className="component-subheader">Sun Position: </p>
-      <div className="component-vertical-container">
+      <div className="component-horizontal-container">
+        <p className="component-subheader">Position: </p>
         <p className="component-body">{posString}</p>
       </div>
-      <p className="component-subheader">Sun Brightness: </p>
-      <div className="component-vertical-container">
+      <div className="component-horizontal-container">
+        <p className="component-subheader">Brightness: </p>
         <p className="component-body">{brightString}</p>
       </div>
-      <p className="component-subheader">Sun Temperature: </p>
-      <div className="component-vertical-container">
+      <div className="component-horizontal-container">
+        <p className="component-subheader">Temperature: </p>
         <p className="component-body">{tempString}</p>
       </div>
     </section>
