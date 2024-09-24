@@ -89,7 +89,7 @@ const SunController = ({ latitude = 47.6061, longitude = -122.3328 }) => {
   };
 
   return (
-    <div className="sun-controller card">
+    <div className="card">
       <h3 className="component-header">Solar Controls</h3>
       <div className="component-horizontal-container">
         <p className="component-subheader">Position: </p>

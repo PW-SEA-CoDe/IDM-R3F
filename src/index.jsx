@@ -22,7 +22,7 @@ const appDetails = {
   appTitle: "Solar Study",
   // set true/false to choose which sidebars to display
   leftBar: true,
-  rightBar: false,
+  rightBar: true,
   // set list to components you wish to include (as strings)
   leftChildren: ["SunController"],
   rightChildren: [null],

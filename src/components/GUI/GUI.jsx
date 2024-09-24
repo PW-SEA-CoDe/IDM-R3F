@@ -3,6 +3,7 @@ import { PanelProvider } from "../UI-primitives/PanelContext";
 import Navbar from "../UI-primitives/Navbar/Navbar";
 import Panel from "../UI-primitives/Panel/Panel";
 import SunController from "../SunController/SunController";
+import SunData from "../SunData/SunData";
 
 import "./GUI.css";
 
@@ -21,7 +22,9 @@ const GUI = ({
           <Panel position="left" exists={left}>
             <SunController />
           </Panel>
-          <Panel position="right" exists={right}></Panel>
+          <Panel position="right" exists={right}>
+            <SunData />
+          </Panel>
         </div>
       </div>
     </PanelProvider>

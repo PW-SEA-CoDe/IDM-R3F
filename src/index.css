@@ -42,7 +42,8 @@ input {
 }
 
 .card {
-  margin: 8px 8px 24px;
+  pointer-events: auto;
+  margin: 0;
   border-bottom: 0.8px solid rgb(217, 217, 217);
 
   display: flex;

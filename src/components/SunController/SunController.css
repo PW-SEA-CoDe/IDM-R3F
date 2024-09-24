@@ -1,8 +1,3 @@
-.sun-controller {
-  pointer-events: auto;
-  margin: 0;
-}
-
 input {
   box-sizing: border-box;
   flex-grow: 1;
