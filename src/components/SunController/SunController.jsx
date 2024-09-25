@@ -17,7 +17,6 @@ const SunController = ({ latitude = 47.6061, longitude = -122.3328 }) => {
   const [date, setDate] = useState(() => {
     const currentDate = new Date();
     const currentTime = currentDate.getHours();
-    //TODO: update logic to check between sunrise/sunset (use suncalc)
     if (currentTime < 8 || currentTime > 19) {
       const newDate = currentDate.setHours(12, 0, 0);
       console.log("time before 8 or after 19, setting time to: " + newDate);

@@ -4,6 +4,19 @@ import { useHelper } from "@react-three/drei";
 
 import { colorTemperatureToRGB } from "../lib/utils";
 
+/**
+  * Creates a Sun object containing a directional light and spherical mesh. 
+  * Mesh material changes color temp, intensity, and bloom based on position. Can
+  * be controlled using SunController + Slider components.
+
+  * @component
+  * @param {array} position (not necessary, updates on first frame)
+  * @param {number} intensity default: 1 
+  * @param {number} temperature default: 5778
+  * @param {number} size default: 100
+  * @param {number} sceneSize default: 1000
+  * @return {React.FC} Sun mesh + directionalLight
+*/
 const Sun = ({
   position,
   intensity = 1,

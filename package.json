@@ -8,12 +8,15 @@
     "force": "vite --force",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docs": "jsdoc -c jsdoc.conf.json"
   },
   "dependencies": {
     "@react-three/drei": "^9.109.2",
     "@react-three/fiber": "^8.17.5",
     "@react-three/postprocessing": "^2.16.2",
+    "better-docs": "^2.7.3",
+    "jsdoc": "^4.0.3",
     "leva": "^0.9.35",
     "postprocessing": "^6.36.0",
     "r3f-perf": "^7.2.1",

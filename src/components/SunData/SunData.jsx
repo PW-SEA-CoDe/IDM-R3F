@@ -1,7 +1,10 @@
-import { useState } from "react";
 import { useSunContext } from "../../SunContext";
 import { roundTo } from "../../lib/utils";
 
+/**
+ * Creates a UI panel showing Sun properties
+ * @return {React.FC} Sun properties panel
+ */
 const SunData = () => {
   const { pos, bright, temp } = useSunContext();
 
