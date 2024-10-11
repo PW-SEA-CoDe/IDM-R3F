@@ -8,12 +8,10 @@ Interactive Design Models - React Three Fiber (IDM-R3F) is an example of an inte
 web application for exploring an architectural design model. It uses React Three Fiber 
 to bridge the gap between Three.js and React.
 
-This repository is intended to be merged into this [project](https://github.com/pw-sea-code/interactivedesignmodels), 
+This repository is a part of this  [project](https://github.com/pw-sea-code/interactivedesignmodels), 
 as an example using the React/React Three Fiber frameworks to create UI/interactive components.
 
 ## 🚀 Quickstart
-
-The ```examples``` subfolder contains a variety of example Three.js web applications split into categories based upon framework/library choices. Within each, there are UI components to pull into fresh applications, as well as helper functions for loading models, adding environmental effects, and manipulating cameras, lighting, etc.
 
 ### Cloning & Install
 You can clone the examples to your local machine using the following commands (from within your desired directory):
