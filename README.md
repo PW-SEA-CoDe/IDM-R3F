@@ -42,6 +42,23 @@ To build your application for deployment, you can instead run:
 $ npm run build
 ```
 
+## Project Structure
+
+```
+index.html                            // entry point, contains core elements
+index.css                              // base styling, component styling will override
+main.jsx                                // main react file, declare components here 
+src/↴
+        assets/↴                      // assets- dynamic upon state/props
+        components/↴            // react components, add subfolders by use
+        lib/↴                             // global constants, hooks, helper functions, etc. 
+                constants.js         // constants for all components
+                hooks.js               // custom React hooks
+                types.ts               // custom Typescript types (if using Typescript)
+                utils.js                 // helper functions
+public/                                // public media/fonts- static
+```
+
 ## Contributing
 
 Feel free to create an issue/PR if you want to see anything else implemented or find any bugs. 
